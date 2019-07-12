@@ -52,7 +52,8 @@ export default class Home extends Component{
         this.state = {
             dataSouce : da.cloneWithRows([]),
             pageIndex : 1,
-            noMoreData : false
+            noMoreData : false,
+            sortIndex : 0
         }
         this.dsDataLists = [];
         this.renderItem = this.renderItem.bind(this);
@@ -150,8 +151,6 @@ export default class Home extends Component{
                     </img>
                     </div> : null }
 
-
-
                 </div>
             </div>
         );
@@ -169,8 +168,8 @@ export default class Home extends Component{
                 useBodyScroll
                 renderRow={this.renderItem}
                 scrollEventThrottle={200}
-                pageSize={20}
-                initalPage={20}
+                // pageSize={20}
+                // initalPage={20}
                 onEndReached={this.loadMore}
                 className="am-list sticky-list"
                 onEndReachedThreshold={0.01}
@@ -194,6 +193,7 @@ export default class Home extends Component{
     );
 
     render(){
+        var self = this
         return (
             <div>
                 {/* 顶部导航栏 */}
@@ -203,6 +203,7 @@ export default class Home extends Component{
                         renderTabBar={props => <Tabs.DefaultTabBar {...props} />}
                         onTabClick={(tab, index) => {
                             console.log('tab' + tab + 'index'+ index);
+                            self.setState({sortIndex : index})
                         }}
                     >
                     {this.renderContent}
